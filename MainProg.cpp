@@ -1,20 +1,41 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-//#include <string>
+#include <string>
 #include <cmath>
 #include <cctype>
 #include <windows.h>
+#include <algorithm>
 using namespace std;
 
 bool MainFallbackResp;
 
+string concatID;
+
+void Keyword(ifstream & stream, string token) { //Search for keyword/username inside text file database
+    string line;
+    while (getline(stream, line)) {
+        if (line.find(token) != string::npos) {
+            cout << line << endl;
+            std::string::iterator end_pos = std::remove(line.begin(), line.end(), ' '); //remove trailling/any white spaces in between
+			line.erase(end_pos, line.end());
+            cout << line;
+            concatID = line; //assign to a global variable
+        }
+    }
+}
+
 void login()
 {
 	char trackingNo[10],Resp;
-	string username,password;
+	//char username[30], password[20],uname_db[30], pword_db[30];
+	string username,password,creds_db,creds;
 	cout << "\n Choose Login type \n 1. Staff \n 2. Customers? Track yur order Here. \n Response >> ";
 	cin >> Resp;
+	
+	ifstream loginDB;
+	loginDB.open("LoginDB.txt"); 
+	
 	switch (Resp) {
 		case '1' : {
 			
@@ -25,10 +46,18 @@ void login()
    			// cout << password << endl;
 			cin >> password;
 			
-			if (username == "test" && password == "test123")
+			//getline(loginDB, uname_db);
+			//getline(loginDB, pword_db);
+			
+			
+			Keyword(loginDB, username);
+			creds = username + password;
+			cout << concatID << "CIMB";
+			if (creds == concatID)
 				MainFallbackResp = true;
 			else 
 				MainFallbackResp = false;
+			
 			
 			break;
 		}
@@ -64,7 +93,7 @@ int main()
 		cout << " ====== ==== ==== Invalid Credentials! Please try again. ==== ==== ======" << endl;
 		cout << " =========================================================================" << endl;
 	}
-	
+	system("CLS");
 	cout << "Login Success";
 	
 	return 0;

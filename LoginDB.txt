@@ -1,0 +1,4 @@
+USERNAME PASSWORD
+admin    Admin123
+manager  Mgr123
+staff    staff123
