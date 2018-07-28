@@ -17,7 +17,7 @@ void Keyword(ifstream & stream, string token) { //Search for keyword/username in
     while (getline(stream, line)) {
         if (line.find(token) != string::npos) {
             cout << line << endl;
-            std::string::iterator end_pos = std::remove(line.begin(), line.end(), ' '); //remove trailling/any white spaces in between
+            std::string::iterator end_pos = std::remove(line.begin(), line.end(), ' '); //remove trailling/any white spaces in between (eg admin Admin123 --> adminAdmin123)
 			line.erase(end_pos, line.end());
             cout << line;
             concatID = line; //assign to a global variable
@@ -51,8 +51,7 @@ void login()
 			
 			
 			Keyword(loginDB, username);
-			creds = username + password;
-			cout << concatID << "CIMB";
+			creds = username + password; //concatenate both variable (eg admin + Admin123 --> adminAdmin123)
 			if (creds == concatID)
 				MainFallbackResp = true;
 			else 
