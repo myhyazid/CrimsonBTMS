@@ -17,22 +17,18 @@ void Dashboard ()
 }
 void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/username inside text file database
     string line; 
-	int const idlength = 8;
     while (getline(stream, line)) {
         if (line.find(token) != string::npos) {
             cout << line << endl;
             
             if (fx == "sublogin") {
         		std::string::iterator end_pos = std::remove(line.begin(), line.end(), ' '); //remove trailling/any white spaces in between (eg admin Admin123 --> adminAdmin123)
-				line.erase(end_pos, line.end());
+				line.erase(end_pos, line.end()); //remove the spaces
             	cout << line;
             	concatID = line; //assign to a global variable
         	}
         	else if (fx == "tracking") {
-//        		int lengthstr= line.length();
-//        		cout << lengthstr;
-//        		int diff= lengthstr - idlength;
-        		line.erase(line.begin()+8,line.end());
+        		line.erase(line.begin()+8,line.end()); //remove the excess information from 1 line or grab only ID.
         		cout << line;
         		concatID = line;
         	}
@@ -44,7 +40,6 @@ void login()
 {
 	char trackingNo[10],Resp;
 	string fxName;
-	//char username[30], password[20],uname_db[30], pword_db[30];
 	string username,password,creds_db,creds;
 	cout << "\n Choose Login type \n 1. Staff \n 2. Customers? Track yur order Here. \n Response >> ";
 	cin >> Resp;
@@ -60,11 +55,8 @@ void login()
 			cin >> username;
 	
 			cout << " Password \t >> \t ";
-   			// cout << password << endl;
 			cin >> password;
 			
-			//getline(loginDB, uname_db);
-			//getline(loginDB, pword_db);
 			
 			fxName = "sublogin";
 			Keyword(loginDB, username, fxName);
@@ -87,7 +79,6 @@ void login()
 			fxName = "tracking";
 			
 			Keyword(loginDB, trackingNo, fxName);
-			//cout << concatID << "cimb";
 			
 			if (trackingNo == concatID)
 				MainFallbackResp = true;
