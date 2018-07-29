@@ -1,0 +1,3 @@
+ID        Name        FaultDesc        ETA        Status
+JG-10214  Imanul      Pb meletup       5          Sent to mfg
+JG-10215  Mirza       Faulty Wire      2          Arrived
