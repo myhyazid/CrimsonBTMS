@@ -19,11 +19,14 @@ void logout()
 { char resp;
 	cout << "\n Do you want to go back to main menu or logout? (Y/N)";
 	cin >> resp;
+	system("CLS");
 	
 	if (resp=='Y' || resp=='y')
 		MainFallbackResp = false;
 	else
 		MainFallbackResp = true;
+		
+	
 }
 void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/username inside text file database
     string line,levln; 
@@ -60,10 +63,10 @@ void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/
 
 void AddClaim () //void function -has no return value
 {
-
+system("CLS");
+	heading();
       int ID, time,statusCode;   //initialization
 	  string CustName, ItemDesc;
-	  heading();
     cout << "Please enter customer ID : " << endl; // get customer ID
     cin >> ID; //
     
@@ -93,6 +96,8 @@ void AddClaim () //void function -has no return value
 
 void EditClaim () 
 {
+	system("CLS");
+	heading();
 	string arr[100] = {""}; //declaration of an array 
 	string statusCode;
 	string id;
@@ -137,11 +142,12 @@ void EditClaim ()
 }
 
 void AddTrans()
-{
+{	
+system("CLS");
+	heading();
 	int transID;        //initialization
 	string transDesc;
 	float amount;
-	heading();
 	
 	 ofstream outfile;
 	 char resp;
@@ -180,6 +186,8 @@ void AddTrans()
 }
 void viewTxn ()
 {
+	system("CLS");
+	heading();
 	ifstream infile;
 	float arrC[10000];
 	float arrD[10000];
@@ -230,22 +238,40 @@ void viewTxn ()
 		infile2.close();
 	
 }
+void view_user()
+	
+	{
+	system("CLS");
+	heading();
+	string a,b;
+	ifstream in;
+	in.open("LoginDB.txt");
+	
+	while (getline(in,a))
+	{
+		cout << a <<endl;
+	}
+	
 
+}
 
 void addUser() //void function named addUser
 {
+	system("CLS");
 	heading();
-	string name,password;  //initialization
+	string name,password,level;  //initialization
 	ofstream outfile;
-	cout<<"Please enter username :";
+	cout<<"Please enter username : ";
 	cin>>name;
-	cout<<"Please enter password :";
+	cout<<"Please enter password : ";
 	cin>>password;
+	cout<<"Please enter user level (1-admin,2-manager,3-staff) :";
+	cin>>level;
 	outfile.open("LoginDB.txt",ios::app);
 	outfile<<"\n";
 	//outfile<<"username		password";
-	outfile<<"\n";
-	outfile<<name<<"    "<<password;
+	//outfile<<"\n";
+	outfile<<name<<"     "<<password<<"     "<<level;
 	outfile.close();
 	 
 }
@@ -262,6 +288,7 @@ void Dashboard ()
 		cout << "\n Welcome, " << username;
 		cout << "\n 1. Add New User";
 		cout << "\n 2. View/Update List of Users";
+		cout << "\n Response >> ";
 		cin >>  resp;
 			switch (resp) {
 				case 1 : {
@@ -270,7 +297,7 @@ void Dashboard ()
 					break;
 				}
 				case 2 : {
-					
+					view_user();
 					counter++;
 					break;
 				}
@@ -293,6 +320,7 @@ void Dashboard ()
 		cout << "\n 2. Record Transaction";
 		cout << "\n 3. Warranty Claim";
 		cout << "\n 4. Print Report";
+		cout << "\n Response >> ";
 		cin >>  resp;
 			switch (resp) {
 				case 1 : {
@@ -308,6 +336,7 @@ void Dashboard ()
 				case 3 : {
 					int resp;
 					cout << "\nChoose \n 1: Add new Warranty Claim \n 2: View/Update Claim";
+					cout << "\n Response >> ";
 					cin >> resp;
 					
 					switch (resp) {
@@ -352,6 +381,7 @@ void Dashboard ()
 		cout << "\n 2. Record Transaction";
 		cout << "\n 3. Warranty Claim";
 		cout << "\n 4. Print Report";
+		cout << "\n Response >> ";
 		//cout << endl <<"\n";
 		cin >>  resp;
 			switch (resp) {
@@ -368,6 +398,7 @@ void Dashboard ()
 				case 3 : {
 					int resp;
 					cout << "\nChoose \n 1: Add new Warranty Claim \n 2: View/Update Claim";
+					cout << "\n Response >> ";
 					cin >> resp;
 					
 					switch (resp) {
@@ -553,7 +584,7 @@ int main()
 		logout();
 	}
 
-	
+	cout << "Thank you! Logging you out from the system now!";
 	
 	return 0;
 }

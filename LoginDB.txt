@@ -2,3 +2,4 @@ USERNAME PASSWORD LEVEL
 admin    Admin123   1
 manager    Mgr123   2
 staff    staff123   3
+adm2     adm2     1
