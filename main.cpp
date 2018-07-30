@@ -9,7 +9,7 @@
 
 using namespace std;
 
-bool MainFallbackResp;
+bool MainFallbackResp,print;
 
 string concatID,level,username;
 char trackingNo[10];
@@ -184,9 +184,14 @@ void viewTxn ()
 	float arrC[10000];
 	float arrD[10000];
 	
+		ofstream off;
+		off.open("Reports.txt");
+		off << "		Debit							Credit" <<endl;
+		off << " ID		Desc		Amt		 ID			Desc			Amt" << endl;
+	
 	ifstream infile2;
-   		infile.open("Transaction_Debit.txt", ios::app);
-		infile2.open("Transaction_Credit.txt", ios::app);
+   		infile.open("Transaction_Debit.txt");
+		infile2.open("Transaction_Credit.txt");
 //		cout <<"text";
 		string in1,in2;
 		cout << "\t \t Debit \t \t \t \t \t \t \t Credit \t \t"<<endl;
@@ -194,6 +199,7 @@ void viewTxn ()
 		int i=0;
 	while(getline(infile, in1) && getline(infile2,in2)) 
 	{
+		off << in1 << "\t \t " << in2 << endl;
 		cout << in1 << "\t \t " << in2 << endl;
 		in1.erase(in1.begin(), in1.end()-3);
 		arrD[i] = stof(in1);	
@@ -213,7 +219,18 @@ void viewTxn ()
 	
 	cout << "\n \t \t \t \t \t \t \t \t \tTotal : \t" << diff;
 	cout <<"\n \t \t \t \t \t \t \t \tTotal \t :"<<  sumD <<  "\t \t \t \t \t \t \t \t" << "Total \t :" << totalC << endl;
+	
+//	off << "\n \t \t \t \t \t \t \t \t \tTotal : \t" << diff;
+	off << "										Total : 		"<<diff<<endl <<endl;
+	off << " 	 	 Total 	 :	" << sumD << " 	 	 	 	Total :			" << totalC <<endl;
+//	off <<"\n \t \t \t \t Total \t :"<<  sumD <<  " \t \t \t \t" << "Total \t :" << totalC << endl;
+	
+				off.close();
+		infile.close();
+		infile2.close();
+	
 }
+
 
 void addUser() //void function named addUser
 {
@@ -301,6 +318,17 @@ void Dashboard ()
 					break;
 				}
 				case 4 : {
+					char prinp;
+					cout << "Do you want to print the report? (Y/N) >> ";
+					cin >> prinp;
+					if (prinp == 'Y' || prinp == 'y')
+					{
+						print = true;
+							viewTxn();
+					}
+						
+					else
+						print = false;
 					
 					counter++;
 					break;
@@ -328,22 +356,36 @@ void Dashboard ()
 		cin >>  resp;
 			switch (resp) {
 				case 1 : {
-					
+					viewTxn();
 					counter++;
 					break;
 				}
 				case 2 : {
-					
+					AddTrans();
 					counter++;
 					break;
 				}
 				case 3 : {
+					int resp;
+					cout << "\nChoose \n 1: Add new Warranty Claim \n 2: View/Update Claim";
+					cin >> resp;
 					
+					switch (resp) {
+						case 1: AddClaim();break;
+						case 2: EditClaim();break;
+					}
 					counter++;
 					break;
 				}
 				case 4 : {
-					
+					char prinp;
+					cout << "Do you want to print the report? (Y/N) >> ";
+					cin >> prinp;
+					if (prinp == 'Y' || prinp == 'y')
+						print = true;
+					else
+						print = false;
+						viewTxn();
 					counter++;
 					break;
 				}

@@ -1,0 +1,6 @@
+		Debit							Credit
+ ID		Desc		Amt		 ID			Desc			Amt
+123		sellPB		300	 	 213		BuyStock		100		
+										Total : 		nan
+
+ 	 	 Total 	 :	300 	 	 	 	Total :			nan
