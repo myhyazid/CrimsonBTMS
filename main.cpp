@@ -82,7 +82,7 @@ void AddClaim ()
 void EditClaim () 
 {
 	string arr[100] = {""};
-	int statusCode;
+	string statusCode;
 	string id;
 	
 	ifstream in;
@@ -109,9 +109,6 @@ void EditClaim ()
 
     
     cout << concatID;
-    i=0;
-    i = std::stoi(id);
- 	arr[i] = concatID + "" + statusCode.to_string();    
     
 	inp.close();
 	
@@ -119,15 +116,10 @@ void EditClaim ()
     cout << "\n Status Code : \n 100 = Sent to Manufacturer \n 105 = Processing \n 200 = Arrived \n 404 = User Collected \n 500 = Refund";
     cin >> statusCode;
     
+    int nova;
     ofstream outfile;
-    outfile.open("Warrantyclaim.txt");
-	    
-	
-	for (int i=0; i<100; i++)
-    {
-    	outfile = arr[i];
-	}
-	
+    outfile.open("Warrantyclaim.txt", ios::app);
+	outfile <<"\n"<< concatID + "" + statusCode;
     outfile.close();
 }
 
