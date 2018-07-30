@@ -1,4 +1,4 @@
-USERNAME PASSWORD
-admin    Admin123
-manager  Mgr123
-staff    staff123
+USERNAME PASSWORD LEVEL
+admin    Admin123   1
+manager  Mgr123     2 
+staff    staff123   3
