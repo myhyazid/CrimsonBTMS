@@ -181,6 +181,9 @@ void AddTrans()
 void viewTxn ()
 {
 	ifstream infile;
+	float arrC[10000];
+	float arrD[10000];
+	
 	ifstream infile2;
    		infile.open("Transaction_Debit.txt", ios::app);
 		infile2.open("Transaction_Credit.txt", ios::app);
@@ -188,10 +191,28 @@ void viewTxn ()
 		string in1,in2;
 		cout << "\t \t Debit \t \t \t \t \t \t \t Credit \t \t"<<endl;
 		cout << "Txn ID \t \tTxn Desc \tAmt \t \t Txn ID \t \t Txn Desc \tAmt" <<endl ;
+		int i=0;
 	while(getline(infile, in1) && getline(infile2,in2)) 
 	{
 		cout << in1 << in2 << endl;
+		in1.erase(in1.begin(), in1.end()-3);
+		arrD[i] = stof(in1);	
+		in2.erase(in2.begin(), in2.end()-3);
+		arrC[i] = stof(in2);
+		i++;
 	}
+	float sumC,sumD,diff,totalC;
+	for (int j=0;j<i;j++)
+	{
+		sumD+=arrD[j];
+		sumC+=arrC[j];
+	}
+	
+	diff = sumD-sumC;
+	totalC = sumC+diff;
+	
+	cout << "\t \t \t \t \t \t \t \t Total : " << diff;
+	cout <<"Total \t :"<<  sumD <<  "\t \t " << "Total \t " << totalC;
 }
 
 void addUser() //void function named addUser
@@ -232,16 +253,6 @@ void Dashboard ()
 					break;
 				}
 				case 2 : {
-					
-					counter++;
-					break;
-				}
-				case 3 : {
-					
-					counter++;
-					break;
-				}
-				case 4 : {
 					
 					counter++;
 					break;
