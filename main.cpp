@@ -15,6 +15,16 @@ string concatID,level,username;
 char trackingNo[10];
 void heading();
 
+void logout()
+{ char resp;
+	cout << "\n Do you want to go back to main menu or logout? (Y/N)";
+	cin >> resp;
+	
+	if (resp=='Y' || resp=='y')
+		MainFallbackResp = false;
+	else
+		MainFallbackResp = true;
+}
 void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/username inside text file database
     string line,levln; 
     while (getline(stream, line)) {
@@ -78,6 +88,7 @@ void AddClaim () //void function -has no return value
     outfile<<"\n";
     outfile<<ID<<"     "<<CustName<<"     "<<ItemDesc<<"     "<<time<<"     "<<statusCode<<endl; //display the data
     outfile.close(); //close the file
+     
 }
 
 void EditClaim () 
@@ -121,7 +132,8 @@ void EditClaim ()
     ofstream outfile; // send data to the file
     outfile.open("Warrantyclaim.txt", ios::app);
 	outfile <<"\n"<< concatID + "" + statusCode;
-    outfile.close(); // close file
+    outfile.close(); 
+	  // close file
 }
 
 void AddTrans()
@@ -130,6 +142,21 @@ void AddTrans()
 	string transDesc;
 	float amount;
 	heading();
+	
+	 ofstream outfile;
+	 char resp;
+   if (level == "2") {
+   	cout << "\n Choose type of transaction, Debit (D) or Credit (C) (D/C) >> ";
+   	cin >>resp;
+   	if (resp == 'D')
+   		outfile.open("Transaction_Debit.txt", ios::app);
+   	else if (resp == 'C')
+   		outfile.open("Transaction_Credit.txt", ios::app);
+   }  		
+	else 
+		outfile.open("Transaction_Credit.txt", ios::app);
+	
+	
    cout <<"======= Add new Transaction =======" <<endl <<endl;
  
    cout << "Please enter Transaction ID: ";
@@ -141,15 +168,30 @@ void AddTrans()
    cout << "Please enter amount: ";
    cin >> amount;
    
-   ofstream outfile;
-   outfile.open("Transaction.txt", ios::app);
+  
    outfile<<"\n";
    //outfile<< "ID		Transaction Description		Amount";
    
    outfile << "\n";
    outfile << transID << "		" << transDesc << "		" << amount << "		" << endl;
    outfile.close();
+    
    				
+}
+void viewTxn ()
+{
+	ifstream infile;
+	ifstream infile2;
+   		infile.open("Transaction_Debit.txt", ios::app);
+		infile2.open("Transaction_Credit.txt", ios::app);
+//		cout <<"text";
+		string in1,in2;
+		cout << "\t \t Debit \t \t \t \t \t \t \t Credit \t \t"<<endl;
+		cout << "Txn ID \t \tTxn Desc \tAmt \t \t Txn ID \t \t Txn Desc \tAmt" <<endl ;
+	while(getline(infile, in1) && getline(infile2,in2)) 
+	{
+		cout << in1 << in2 << endl;
+	}
 }
 
 void addUser() //void function named addUser
@@ -167,6 +209,7 @@ void addUser() //void function named addUser
 	outfile<<"\n";
 	outfile<<name<<"    "<<password;
 	outfile.close();
+	 
 }
 
 void Dashboard ()
@@ -209,6 +252,7 @@ void Dashboard ()
 					}
 		}
 	}
+	 
 }
 	else if (level == "2") // Manager
 	{
@@ -224,7 +268,7 @@ void Dashboard ()
 		cin >>  resp;
 			switch (resp) {
 				case 1 : {
-					
+					viewTxn();
 					counter++;
 					break;
 				}
@@ -256,6 +300,7 @@ void Dashboard ()
 					}
 			};
 	}
+	 
 }
 	else if (level == "3") // Staff
 	{
@@ -297,6 +342,7 @@ void Dashboard ()
 					}
 			};
 		}
+		 
 	}
 	else if (level=="4")
 	{
@@ -330,29 +376,30 @@ void Dashboard ()
 		}
 		//cout << stat;
 		for (int j=0; j<i;j++){
-		if (arr[i].statcode == "100") {
-			arr[i].msg="Sent_to_Manufacturer";
+		if (arr[j].statcode == "100") {
+			arr[j].msg="Sent_to_Manufacturer";
 		}
-		else if (arr[i].statcode == "105") {
-			arr[i].msg = "Processing";
+		else if (arr[j].statcode == "105") {
+			arr[j].msg = "Processing";
 		}
-		else if (arr[i].statcode == "200"){
-			arr[i].msg = "Arrived";
+		else if (arr[j].statcode == "200"){
+			arr[j].msg = "Arrived";
 		}
-		else if (arr[i].statcode == "404"){
-			arr[i].msg = "User_Collected";
+		else if (arr[j].statcode == "404"){
+			arr[j].msg = "User_Collected";
 		}
-		else if (arr[i].statcode == "500"){
-			arr[i].msg = "Refund";
+		else if (arr[j].statcode == "500"){
+			arr[j].msg = "Refund";
 		}
 		}
 		
-		cout << arr[1].msg;
+		//cout << arr[1].statcode;
 		for (int k=0; k<i;k++)
 		{
-			cout << "\n"<< arr[i].mainmsg << "" << arr[i].msg;
+			cout << "\n"<< arr[k].mainmsg << "" << arr[k].msg;
 		}
 		in.close();
+		//logout();
 	}
 	else 
 		cout << "\n UNAUTHORIZED ACCESS";
@@ -441,10 +488,18 @@ int main()
 		cout << " ====== ==== ==== Invalid Credentials! Please try again. ==== ==== ======" << endl;
 		cout << " =========================================================================" << endl;
 	}
-	system("CLS");
-	cout << "Login Success";
 	
-	Dashboard();
+	cout << "Login Success";
+	system("CLS");
+	MainFallbackResp = false;
+	while (MainFallbackResp == false) 
+	{
+	//	heading();
+		Dashboard();	
+		//system("CLS");
+		logout();
+	}
+
 	
 	
 	return 0;
