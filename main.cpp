@@ -173,7 +173,7 @@ void AddTrans()
    //outfile<< "ID		Transaction Description		Amount";
    
    outfile << "\n";
-   outfile << transID << "		" << transDesc << "		" << amount << "		" << endl;
+   outfile << transID << "		" << transDesc << "		" << amount<< endl;
    outfile.close();
     
    				
