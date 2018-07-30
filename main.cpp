@@ -47,49 +47,49 @@ void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/
     }
 }
 
-void AddClaim () 
+void AddClaim () //void function -has no return value
 {
 
-      int ID, time,statusCode;
+      int ID, time,statusCode;   //initialization
 	  string CustName, ItemDesc;
 	  heading();
-    cout << "Please enter customer ID : " << endl;
-    cin >> ID;
+    cout << "Please enter customer ID : " << endl; // get customer ID
+    cin >> ID; //
     
-    cout << "Please enter customer name :  " << endl;
+    cout << "Please enter customer name :  " << endl; //get customer name
     cin >> CustName;
     
-    cout << "Please enter the item description : " << endl;
+    cout << "Please enter the item description : " << endl; //get item description
     cin >> ItemDesc;
     
-    cout << "Enter the estimated time for customer to receive the warranty : " << endl;
+    cout << "Enter the estimated time for customer to receive the warranty : " << endl; //get the estimated time
     cin >> time;
     
-    cout << "Enter the status of the warranty claim : " << endl;
-    cout << "\n Status Code : \n 100 = Sent to Manufacturer \n 105 = Processing \n 200 = Arrived \n 404 = User Collected \n 500 = Refund";
+    cout << "Enter the status of the warranty claim : " << endl; //prompt for status of the warranty
+    cout << "\n Status Code : \n 100 = Sent to Manufacturer \n 105 = Processing \n 200 = Arrived \n 404 = User Collected \n 500 = Refund"; //explanation on the status code
     cin >> statusCode;
     
-    ofstream outfile;
-    outfile.open("Warrantyclaim.txt", ios::app);
+    ofstream outfile; //send data to the file
+    outfile.open("Warrantyclaim.txt", ios::app); //
     outfile<<"\n";
     //outfile<<"ID     CUSTOMERNAME     ITEMDESC     TIME     STATUS";
     
     outfile<<"\n";
-    outfile<<ID<<"     "<<CustName<<"     "<<ItemDesc<<"     "<<time<<"     "<<statusCode<<endl;
-    outfile.close();
+    outfile<<ID<<"     "<<CustName<<"     "<<ItemDesc<<"     "<<time<<"     "<<statusCode<<endl; //display the data
+    outfile.close(); //close the file
 }
 
 void EditClaim () 
 {
-	string arr[100] = {""};
+	string arr[100] = {""}; //declaration of an array 
 	string statusCode;
 	string id;
 	
-	ifstream in;
+	ifstream in; //read input from file
 	string line;
-	in.open("Warrantyclaim.txt");
+	in.open("Warrantyclaim.txt");//open the
 	
-	int i=0;
+	int i=0; //initialize i to 0
 	while (getline(in, line))
 	{
 		cout << line <<endl;
@@ -108,24 +108,24 @@ void EditClaim ()
 	Keyword(inp,id,"edit");
 
     
-    cout << concatID;
+    cout << concatID; //get username and password from the file
     
-	inp.close();
+	inp.close(); //close the file
 	
-	cout << "Enter the new status of the warranty claim : " << endl;
+	cout << "Enter the new status of the warranty claim : " << endl; //get new status of the warranty
     cout << "\n Status Code : \n 100 = Sent to Manufacturer \n 105 = Processing \n 200 = Arrived \n 404 = User Collected \n 500 = Refund";
     cin >> statusCode;
     
     int nova;
-    ofstream outfile;
+    ofstream outfile; // send data to the file
     outfile.open("Warrantyclaim.txt", ios::app);
 	outfile <<"\n"<< concatID + "" + statusCode;
-    outfile.close();
+    outfile.close(); // close file
 }
 
 void AddTrans()
 {
-	int transID;
+	int transID;        //initialization
 	string transDesc;
 	float amount;
 	heading();
@@ -151,10 +151,10 @@ void AddTrans()
    				
 }
 
-void addUser()
+void addUser() //void function named addUser
 {
 	heading();
-	string name,password;
+	string name,password;  //initialization
 	ofstream outfile;
 	cout<<"Please enter username :";
 	cin>>name;
@@ -267,6 +267,7 @@ void Dashboard ()
 		cout << "\n 2. Record Transaction";
 		cout << "\n 3. Warranty Claim";
 		cout << "\n 4. Print Report";
+		//cout << endl <<"\n";
 		cin >>  resp;
 			switch (resp) {
 				case 1 : {
@@ -306,7 +307,7 @@ void login()
 	char trackingNo[10],Resp;
 	string fxName;
 	string password,creds_db,creds;
-	cout << "\n Choose Login type \n 1. Staff \n 2. Customers? Track yur order Here. \n Response >> ";
+	cout << "\n Choose Login type \n 1. Staff \n 2. Customers? Track your order Here. \n Response >> ";
 	cin >> Resp;
 	
 	ifstream loginDB;
@@ -326,7 +327,6 @@ void login()
 			fxName = "sublogin";
 			Keyword(loginDB, username, fxName);
 			creds = username + password; //concatenate both variable (eg admin + Admin123 --> adminAdmin123)
-//			cout << concatID << creds;
 			if (creds == concatID)
 				MainFallbackResp = true;
 			else 
