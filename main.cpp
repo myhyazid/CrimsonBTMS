@@ -12,6 +12,7 @@ using namespace std;
 bool MainFallbackResp;
 
 string concatID,level,username;
+char trackingNo[10];
 void heading();
 
 void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/username inside text file database
@@ -37,15 +38,15 @@ void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/
         		cout << line;
         		concatID = line;
         	}
-        	else if (fx == "edit") {
+        	 else if (fx == "edit") {
         		int length = line.length(); // Get User Row length
             	
             	line.erase(line.begin()+(length-3), line.end());
             	concatID= line;
 			}
+			}
         }
     }
-}
 
 void AddClaim () //void function -has no return value
 {
@@ -297,6 +298,62 @@ void Dashboard ()
 			};
 		}
 	}
+	else if (level=="4")
+	{
+		ifstream in;
+		struct message {
+			string mainmsg;
+			string statcode;
+			string msg;
+		};
+		message arr[100];
+		in.open("Warrantyclaim.txt");
+		string out,stat;
+		
+		//Keyword(in, trackingNo, "edit");
+	//	cout << concatID;
+	
+		int i =0;
+  		  while (getline(in, out)) {
+        	if (out.find(trackingNo) != string::npos) {
+        		stat = out;
+        		
+        		stat.erase(stat.begin(), stat.end()-3);
+        		arr[i].statcode = stat;
+        		
+        		int length = out.length(); // Get User Row length
+        		out.erase(out.begin()+(length-3), out.end());
+            	arr[i].mainmsg = out;
+            	i++;
+		
+			}
+		}
+		//cout << stat;
+		for (int j=0; j<i;j++){
+		if (arr[i].statcode == "100") {
+			arr[i].msg="Sent_to_Manufacturer";
+		}
+		else if (arr[i].statcode == "105") {
+			arr[i].msg = "Processing";
+		}
+		else if (arr[i].statcode == "200"){
+			arr[i].msg = "Arrived";
+		}
+		else if (arr[i].statcode == "404"){
+			arr[i].msg = "User_Collected";
+		}
+		else if (arr[i].statcode == "500"){
+			arr[i].msg = "Refund";
+		}
+		}
+		
+		cout << arr[1].msg;
+		for (int k=0; k<i;k++)
+		{
+			cout << "\n"<< arr[i].mainmsg << "" << arr[i].msg;
+		}
+		in.close();
+	}
 	else 
 		cout << "\n UNAUTHORIZED ACCESS";
 }
@@ -304,7 +361,7 @@ void Dashboard ()
 
 void login()
 {
-	char trackingNo[10],Resp;
+	char Resp;
 	string fxName;
 	string password,creds_db,creds;
 	cout << "\n Choose Login type \n 1. Staff \n 2. Customers? Track your order Here. \n Response >> ";
@@ -337,7 +394,8 @@ void login()
 			break;
 		}
 		case '2' : {
-			loginDB.open("ClaimTrack.txt");
+			loginDB.open("WarrantyClaim.txt");
+			level = "4";
 			
 			cout << "\n Tracking No \t >> \t ";
 			cin >> trackingNo;	

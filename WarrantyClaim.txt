@@ -1,3 +1,4 @@
-ID	 Name	 Descr	 ETA	Status
-12	 gdfhf	 sdfdn	 43		404
-12	 gdfhf	 sdfdn	 43		200
+ID		  Name	 	  Descr	 		  ETA		  Status
+JG-10214  Imanul      Pb meletup       5          404
+JG-10214  Imanul	  Pb meletup	   10		  200
+JG-10215  Mirza       Faulty Wire      2          200
