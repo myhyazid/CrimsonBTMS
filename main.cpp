@@ -194,7 +194,7 @@ void viewTxn ()
 		int i=0;
 	while(getline(infile, in1) && getline(infile2,in2)) 
 	{
-		cout << in1 << in2 << endl;
+		cout << in1 << "\t \t " << in2 << endl;
 		in1.erase(in1.begin(), in1.end()-3);
 		arrD[i] = stof(in1);	
 		in2.erase(in2.begin(), in2.end()-3);
@@ -211,8 +211,8 @@ void viewTxn ()
 	diff = sumD-sumC;
 	totalC = sumC+diff;
 	
-	cout << "\t \t \t \t \t \t \t \t Total : " << diff;
-	cout <<"Total \t :"<<  sumD <<  "\t \t " << "Total \t " << totalC;
+	cout << "\n \t \t \t \t \t \t \t \t \tTotal : \t" << diff;
+	cout <<"\n \t \t \t \t \t \t \t \tTotal \t :"<<  sumD <<  "\t \t \t \t \t \t \t \t" << "Total \t :" << totalC << endl;
 }
 
 void addUser() //void function named addUser
