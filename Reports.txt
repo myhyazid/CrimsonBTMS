@@ -1,6 +1,10 @@
 		Debit							Credit
  ID		Desc		Amt		 ID			Desc			Amt
-123		sellPB		300	 	 213		BuyStock		100		
-										Total : 		300
+123		sellPB		300	 	 213		BuyStock		100
+1233		ss		123	 	 123		vf		222
+4424		imanul		200	 	 343		dde		333
+3213		dsf		213	 	 123		ccc		333
+101		ayam		200	 	 3333		ala		200
+										Total : 		-152
 
- 	 	 Total 	 :	300 	 	 	 	Total :			300
+ 	 	 Total 	 :	1036 	 	 	 	Total :			1036

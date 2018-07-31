@@ -1,1 +1,8 @@
 123		sellPB		300
+1233		ss		123
+4424		imanul		200
+3213		dsf		213
+101		ayam		200
+211		cdc		212
+333		deddede		2220
+1232		ayamgoreng		100

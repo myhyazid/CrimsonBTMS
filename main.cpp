@@ -17,15 +17,28 @@ void heading();
 
 void logout()
 { char resp;
+	int counter=0;
+	while (counter==0)
+	{
 	cout << "\n Do you want to go back to main menu or logout? (Y/N)";
 	cin >> resp;
-	system("CLS");
 	
-	if (resp=='Y' || resp=='y')
-		MainFallbackResp = false;
-	else
-		MainFallbackResp = true;
+	if (resp=='Y' || resp=='y' || resp=='N' || resp=='n') {
+		system("CLS");
 		
+		if (resp=='Y' || resp=='y')
+			MainFallbackResp = false;
+		else
+			MainFallbackResp = true;
+		
+		counter++;
+	}
+	else {
+		cout <<"\n Invalid Input,try again!";
+		cin.clear();
+		cin.ignore(100,'\n');
+	}
+}		
 	
 }
 void Keyword(ifstream & stream, string token, string fx) { //Search for keyword/username inside text file database
@@ -160,7 +173,7 @@ system("CLS");
    		outfile.open("Transaction_Credit.txt", ios::app);
    }  		
 	else 
-		outfile.open("Transaction_Credit.txt", ios::app);
+		outfile.open("Transaction_Debit.txt", ios::app);
 	
 	
    cout <<"======= Add new Transaction =======" <<endl <<endl;
@@ -175,11 +188,11 @@ system("CLS");
    cin >> amount;
    
   
-   outfile<<"\n";
+   //outfile<<"\n";
    //outfile<< "ID		Transaction Description		Amount";
    
-   outfile << "\n";
-   outfile << transID << "		" << transDesc << "		" << amount<< endl;
+   ///outfile << "\n";
+   outfile <<"\n" transID << "		" << transDesc << "		" << amount;
    outfile.close();
     
    				
@@ -205,7 +218,7 @@ void viewTxn ()
 		cout << "\t \t Debit \t \t \t \t \t \t \t Credit \t \t"<<endl;
 		cout << "Txn ID \t \tTxn Desc \tAmt \t \t Txn ID \t \t Txn Desc \tAmt" <<endl ;
 		int i=0;
-	while(getline(infile, in1) && getline(infile2,in2)) 
+	while(getline(infile2, in2) && getline(infile,in1)) 
 	{
 		off << in1 << "\t \t " << in2 << endl;
 		cout << in1 << "\t \t " << in2 << endl;
@@ -259,22 +272,41 @@ void addUser() //void function named addUser
 {
 	system("CLS");
 	heading();
-	string name,password,level;  //initialization
+	string name,password;  //initialization
+	int lvl;
 	ofstream outfile;
 	cout<<"Please enter username : ";
 	cin>>name;
 	cout<<"Please enter password : ";
 	cin>>password;
+	
+	int counter=0;
+	while (counter==0)
+	{
 	cout<<"Please enter user level (1-admin,2-manager,3-staff) :";
-	cin>>level;
-	outfile.open("LoginDB.txt",ios::app);
-	outfile<<"\n";
-	//outfile<<"username		password";
-	//outfile<<"\n";
-	outfile<<name<<"     "<<password<<"     "<<level;
-	outfile.close();
-	 
+	cin >> lvl;
+	
+	
+	if (lvl<=3)
+	{
+		outfile.open("LoginDB.txt",ios::app);
+		outfile<<"\n";
+		//outfile<<"username		password";
+		//outfile<<"\n";
+		outfile<<name<<"     "<<password<<"     "<<level;
+		outfile.close();
+	
+		counter++;
+	}
+	else 
+	{
+		cout << "\n Invalid Input, try again!";
+		cin.clear();
+		cin.ignore(100,'\n');
+	}
 }
+}
+	 
 
 void Dashboard ()
 {
@@ -304,10 +336,14 @@ void Dashboard ()
 				default :
 					{
 						cout << "\n Invalid Input";
+						cin.clear();
+						cin.ignore(100,'\n');
+						system("CLS");
+						heading();
 					}
 		}
 	}
-	 
+
 }
 	else if (level == "2") // Manager
 	{
@@ -365,6 +401,10 @@ void Dashboard ()
 				default :
 					{
 						cout << "\n Invalid Input";
+						cin.clear();
+						cin.ignore(100,'\n');
+						system("CLS");
+						heading();
 					}
 			};
 	}
@@ -422,7 +462,10 @@ void Dashboard ()
 				}
 				default :
 					{
-						cout << "\n Invalid Input";
+						cout << "\n Invalid Input";cin.clear();
+						cin.ignore(100,'\n');
+						system("CLS");
+						heading();
 					}
 			};
 		}

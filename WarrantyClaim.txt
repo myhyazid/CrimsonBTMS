@@ -2,3 +2,14 @@ ID		  Name	 	  Descr	 		  ETA		  Status
 JG-10214  Imanul      Pb meletup       5          404
 JG-10214  Imanul      Pb meletup       10		  200
 JG-10215  Mirza       Faulty Wire      2          200
+
+0               0     16777216
+
+
+323     Imanuls     powerbankmeletup     5     100
+
+
+323     Yus     cable     4     100
+
+
+0               0     16777216
